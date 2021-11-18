@@ -1,4 +1,3 @@
-import React from "react";
 import screenShot from "./temp-pic.png";
 import { Link } from "react-router-dom";
 
