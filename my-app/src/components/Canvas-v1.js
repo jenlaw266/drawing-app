@@ -4,7 +4,23 @@ const Canvas = (props) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
+  const useMove = () => {
+    const [location, setLocation] = useState({ x: 0, y: 0 });
+    const handleMouseMove = (e) => {
+      e.persist();
+      setLocation((prev) => ({ ...prev, x: e.pageX, y: e.pageY }));
+      contextRef.current.lineTo(e.pageX, e.pageY);
+      contextRef.current.stroke();
+    };
+    return {
+      x: location.x,
+      y: location.y,
+      handleMouseMove,
+    };
+  };
+
   const [draw, setDraw] = useState(false);
+  const { x, y, handleMouseMove } = useMove();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,25 +42,13 @@ const Canvas = (props) => {
     contextRef.current = context;
   }, []);
 
-  const handleMouseDown = ({ nativeEvent }) => {
-    console.log("nativeevent", nativeEvent);
-    const { offsetX, offsetY } = nativeEvent;
+  const handleMouseDown = () => {
     contextRef.current.beginPath();
-    contextRef.current.moveTo(offsetX, offsetY);
+    contextRef.current.moveTo(x, y);
     setDraw(true);
   };
 
-  const handleMouseMove = ({ nativeEvent }) => {
-    if (!draw) {
-      return;
-    }
-    const { offsetX, offsetY } = nativeEvent;
-    contextRef.current.lineTo(offsetX, offsetY);
-    contextRef.current.stroke();
-  };
-
   const handleMouseUp = () => {
-    contextRef.current.closePath();
     setDraw(false);
   };
 
@@ -52,7 +56,7 @@ const Canvas = (props) => {
     <canvas
       ref={canvasRef}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
+      onMouseMove={draw ? handleMouseMove : () => {}}
       onMouseUp={handleMouseUp}
       {...props}
     />
