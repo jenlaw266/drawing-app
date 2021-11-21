@@ -6,11 +6,30 @@ import {
   faGripLinesVertical,
   faSquareFull,
   faHandPointer,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
+const BrushSize = () => {
+  return (
+    <div className="control">
+      <br />
+      <label className="radio">
+        <input type="radio" name="small" /> S
+      </label>
+      <label className="radio">
+        <input type="radio" name="large" checked /> M
+      </label>
+      <label className="radio">
+        <input type="radio" name="large" /> L
+      </label>
+    </div>
+  );
+};
+
 const Draw = () => {
-  const [elementType, setElementType] = useState("line");
+  const [elementType, setElementType] = useState("brush");
+  const [brushWidth, setBrushWidth] = useState(5);
   return (
     <div>
       <section className="section">
@@ -59,15 +78,27 @@ const Draw = () => {
                       </span>
                     </button>
                   </article>
+                  <article>
+                    <button
+                      className="button"
+                      onClick={() => setElementType("select")}
+                    >
+                      <span className="icon is-small">
+                        <FontAwesomeIcon icon={faTrash} />
+                      </span>
+                    </button>
+                  </article>
                 </div>
               </div>
             </div>
             <div className="column is-11">
+              <input
+                type="range"
+                min="1"
+                max="100"
+                className="brush-size"
+              ></input>
               <Canvas elementType={elementType} />
-              {/* <canvas
-                id="paint"
-                onClick={(e) => console.log(e.pageX, e.pageY)}
-              ></canvas> */}
             </div>
           </div>
         </div>
