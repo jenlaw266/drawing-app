@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import "./Canvas.css";
 
 const Canvas = (props) => {
   const canvasRef = useRef(null);
@@ -15,13 +16,13 @@ const Canvas = (props) => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    context.fillStyle = "black";
+    context.fillStyle = "white";
     context.beginPath();
     context.rect(0, 0, context.canvas.width, context.canvas.height);
     context.fill();
 
     context.lineCap = "round";
-    context.strokeStyle = "white";
+    context.strokeStyle = "black";
     context.lineWidth = 5;
     contextRef.current = context;
   }, []);

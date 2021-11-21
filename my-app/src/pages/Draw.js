@@ -16,14 +16,13 @@ const Draw = () => {
       <section className="section">
         <div className="container">
           <div className="columns">
-            <div className="column is-2">
+            <div className="column is-1">
               <div className="tile is-parent box">
                 <div className="content">
                   <article>
-                    <label className="subtitle">Brush</label>
                     <button
                       className="button"
-                      onClick={setElementType("brush")}
+                      onClick={() => setElementType("brush")}
                     >
                       <span className="icon is-small">
                         <FontAwesomeIcon icon={faPaintBrush} />
@@ -31,26 +30,29 @@ const Draw = () => {
                     </button>
                   </article>
                   <article>
-                    <label className="subtitle">Line</label>
-                    <button className="button" onClick={setElementType("line")}>
+                    <button
+                      className="button"
+                      onClick={() => setElementType("line")}
+                    >
                       <span className="icon is-small">
                         <FontAwesomeIcon icon={faGripLinesVertical} />
                       </span>
                     </button>
                   </article>
                   <article>
-                    <label className="subtitle">Rectangle</label>
-                    <button className="button" onClick={setElementType("rect")}>
+                    <button
+                      className="button"
+                      onClick={() => setElementType("rect")}
+                    >
                       <span className="icon is-small">
                         <FontAwesomeIcon icon={faSquareFull} />
                       </span>
                     </button>
                   </article>
                   <article>
-                    <label className="subtitle">Select</label>
                     <button
                       className="button"
-                      onClick={setElementType("select")}
+                      onClick={() => setElementType("select")}
                     >
                       <span className="icon is-small">
                         <FontAwesomeIcon icon={faHandPointer} />
@@ -60,8 +62,8 @@ const Draw = () => {
                 </div>
               </div>
             </div>
-            <div className="column is-10">
-              <Canvas />
+            <div className="column is-11">
+              <Canvas elementType={elementType} />
               {/* <canvas
                 id="paint"
                 onClick={(e) => console.log(e.pageX, e.pageY)}
