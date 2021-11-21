@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div>
-      <section class="section">
-        <div class="container">
-          <div class="columns">
-            <div class="column">
+      <section className="section">
+        <div className="container">
+          <div className="columns">
+            <div className="column">
               <Link to="/draw">
                 <img src={screenShot} alt="screen shot" />
               </Link>
             </div>
-            <div class="column">
+            <div className="column">
               Sint aute non do incididunt velit eiusmod magna consectetur.
               Exercitation aliqua nulla Lorem ipsum reprehenderit magna veniam
               officia irure et anim consectetur. Lorem nostrud laboris ullamco
