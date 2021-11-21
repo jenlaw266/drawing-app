@@ -11,7 +11,7 @@ const Canvas = (props) => {
     const context = canvas.getContext("2d");
 
     canvas.style.width = "100%";
-    canvas.style.height = "72vh";
+    canvas.style.height = "60vh";
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
@@ -26,9 +26,9 @@ const Canvas = (props) => {
     contextRef.current = context;
   }, []);
 
-  const handleMouseDown = (e) => {
-    console.log("nativeevent", e);
-    const { offsetX, offsetY } = e.nativeEvent;
+  const handleMouseDown = ({ nativeEvent }) => {
+    console.log("nativeevent", nativeEvent);
+    const { offsetX, offsetY } = nativeEvent;
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
     setDraw(true);

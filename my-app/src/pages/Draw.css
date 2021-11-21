@@ -5,3 +5,8 @@
   margin-right: auto;
   display: block;
 }
+
+article {
+  display: flex;
+  justify-content: space-between;
+}
