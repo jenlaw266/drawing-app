@@ -12,9 +12,12 @@ article {
   align-content: center;
 }
 
-.tile {
-  min-width: max-content;
-  justify-content: center;
+#right-align {
+  justify-content: flex-end;
+}
+
+.tile.is-parent {
+  padding-bottom: 0;
 }
 
 label {
@@ -22,8 +25,20 @@ label {
   font-weight: bold;
 }
 
+.section {
+  padding-top: 1em;
+}
+
+input {
+  margin-right: 1rem;
+}
+
+.save-button {
+  align-self: flex-end;
+}
+
 @media (max-width: 850px) {
   body {
-    background-color: lightblue;
+    background-color: white;
   }
 }
