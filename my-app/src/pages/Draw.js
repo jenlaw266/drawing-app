@@ -13,7 +13,7 @@ import { useState } from "react";
 
 const Draw = () => {
   const [elementType, setElementType] = useState("brush");
-  const [brushWidth, setBrushWidth] = useState(1);
+  const [brushWidth, setBrushWidth] = useState(20);
   const [colour, setColour] = useState("black");
   const [elements, setElements] = useState([]);
   const [action, setAction] = useState("none"); //none, drawing, moving, remove, fill
@@ -124,47 +124,19 @@ const Draw = () => {
               </div>
             </div>
             <div className="column is-11">
-              <div class="buttons">
-                <div class="control">
-                  <label class="radio">
-                    <input
-                      type="radio"
-                      name="answer"
-                      onChange={() => setBrushWidth(1)}
-                    />
-                    1
-                  </label>
-                  <label class="radio">
-                    <input
-                      type="radio"
-                      name="answer"
-                      onChange={() => setBrushWidth(5)}
-                    />
-                    5
-                  </label>
-                  <label class="radio">
-                    <input
-                      type="radio"
-                      name="answer"
-                      onChange={() => setBrushWidth(10)}
-                    />
-                    10
-                  </label>
-                  <label class="radio">
-                    <input
-                      type="radio"
-                      name="answer"
-                      onChange={() => setBrushWidth(15)}
-                    />
-                    15
-                  </label>
-                </div>
-                <input
-                  type="color"
-                  id="color"
-                  onChange={(e) => setColour(e.target.value)}
-                />
-              </div>
+              <input
+                type="range"
+                min="1"
+                max="20"
+                className="brush-size"
+                onChange={(e) => setBrushWidth(e.target.value)}
+              ></input>
+              {brushWidth}
+              <input
+                type="color"
+                id="color"
+                onChange={(e) => setColour(e.target.value)}
+              />
               <Canvas
                 elements={elements}
                 setElements={setElements}

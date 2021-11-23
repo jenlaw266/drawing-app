@@ -15,7 +15,6 @@ const Canvas = (props) => {
     setAction,
   } = props;
 
-  console.log("elements", elements);
   const [selectedElement, setSelectedElement] = useState(null);
 
   useEffect(() => {
@@ -27,11 +26,8 @@ const Canvas = (props) => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    context.fillStyle = "white";
     context.beginPath();
     context.rect(0, 0, context.canvas.width, context.canvas.height);
-    context.fill();
-    context.stroke();
 
     context.lineCap = "round";
 
@@ -70,20 +66,6 @@ const Canvas = (props) => {
     contextRef.current = context;
   }, [elements, colour, brushWidth, elementType]);
 
-  const createElement = (
-    id,
-    x1,
-    y1,
-    x2,
-    y2,
-    type,
-    bColour,
-    bWidth,
-    fColour
-  ) => {
-    return { id, x1, y1, x2, y2, type, bColour, bWidth, fColour };
-  };
-
   const distance = (a, b) =>
     Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 
@@ -119,7 +101,7 @@ const Canvas = (props) => {
     bWidth,
     fColour
   ) => {
-    const updatedElement = createElement(
+    const updatedElement = {
       id,
       x1,
       y1,
@@ -128,8 +110,8 @@ const Canvas = (props) => {
       type,
       bColour,
       bWidth,
-      fColour
-    );
+      fColour,
+    };
     const elementsCopy = [...elements];
     elementsCopy[id] = updatedElement;
     setElements(elementsCopy);
@@ -152,12 +134,7 @@ const Canvas = (props) => {
           setSelectedElement({ ...element, elOffsetX, elOffsetY });
         }
       }
-    } else if (elementType === "brush") {
-      contextRef.current.beginPath();
-      contextRef.current.moveTo(offsetX, offsetY);
-      //setElement -- give brush offset x, offset y
-      setAction("drawing");
-    } else if (elementType === "line" || elementType === "rect") {
+    } else {
       let id;
       if (elements.length > 0) {
         const lastIndex = elements.length - 1;
@@ -165,18 +142,24 @@ const Canvas = (props) => {
       } else {
         id = 0;
       }
-      const element = createElement(
-        id,
-        offsetX,
-        offsetY,
-        offsetX,
-        offsetY,
-        elementType,
-        colour,
-        brushWidth,
-        null
-      );
-      setElements((prev) => [...prev, element]);
+      if (elementType === "line" || elementType === "rect") {
+        const element = {
+          id,
+          x1: offsetX,
+          y1: offsetY,
+          x2: offsetX,
+          y2: offsetY,
+          type: elementType,
+          bColour: colour,
+          bWidth: brushWidth,
+          fColour: null,
+        };
+        setElements((prev) => [...prev, element]);
+      } else if (elementType === "brush") {
+        //edit here
+        contextRef.current.beginPath();
+        contextRef.current.moveTo(offsetX, offsetY);
+      }
       setAction("drawing");
     }
   };
@@ -192,6 +175,7 @@ const Canvas = (props) => {
 
     if (action === "drawing") {
       if (elementType === "brush") {
+        //edit here
         contextRef.current.strokeStyle = colour;
         contextRef.current.lineWidth = brushWidth;
         contextRef.current.lineTo(offsetX, offsetY);
@@ -254,6 +238,7 @@ const Canvas = (props) => {
     });
     setSelectedElement(null);
     if (elementType === "brush") {
+      //edit here
       contextRef.current.closePath();
       const freeLine = contextRef.current.getImageData(
         0,
@@ -265,8 +250,6 @@ const Canvas = (props) => {
       setElements((prev) => [...prev, element]);
     }
   };
-
-  console.log(action);
 
   return (
     <canvas
