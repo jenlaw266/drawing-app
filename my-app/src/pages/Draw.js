@@ -1,35 +1,23 @@
 import "./Draw.css";
 import Canvas from "../components/Canvas";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPaintBrush,
-  faGripLinesVertical,
-  faSquareFull,
-  faHandPointer,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+  FaMousePointer,
+  FaMinus,
+  FaSquare,
+  FaPaintBrush,
+  FaFillDrip,
+  FaTrash,
+  FaStickyNote,
+} from "react-icons/fa";
 import { useState } from "react";
-
-const BrushSize = () => {
-  return (
-    <div className="control">
-      <br />
-      <label className="radio">
-        <input type="radio" name="small" /> S
-      </label>
-      <label className="radio">
-        <input type="radio" name="large" checked /> M
-      </label>
-      <label className="radio">
-        <input type="radio" name="large" /> L
-      </label>
-    </div>
-  );
-};
 
 const Draw = () => {
   const [elementType, setElementType] = useState("brush");
-  const [brushWidth, setBrushWidth] = useState(5);
+  const [brushWidth, setBrushWidth] = useState(20);
+  const [colour, setColour] = useState("black");
+  const [elements, setElements] = useState([]);
+  const [action, setAction] = useState("none"); //none, drawing, moving, remove, fill
+
   return (
     <div>
       <section className="section">
@@ -41,50 +29,94 @@ const Draw = () => {
                   <article>
                     <button
                       className="button"
-                      onClick={() => setElementType("brush")}
+                      onClick={() => {
+                        setAction("none");
+                        setElementType("brush");
+                      }}
                     >
                       <span className="icon is-small">
-                        <FontAwesomeIcon icon={faPaintBrush} />
+                        <FaPaintBrush />
                       </span>
                     </button>
                   </article>
                   <article>
                     <button
                       className="button"
-                      onClick={() => setElementType("line")}
+                      onClick={() => {
+                        setAction("none");
+                        setElementType("line");
+                      }}
                     >
                       <span className="icon is-small">
-                        <FontAwesomeIcon icon={faGripLinesVertical} />
+                        <FaMinus />
                       </span>
                     </button>
                   </article>
                   <article>
                     <button
                       className="button"
-                      onClick={() => setElementType("rect")}
+                      onClick={() => {
+                        setAction("none");
+                        setElementType("rect");
+                      }}
                     >
                       <span className="icon is-small">
-                        <FontAwesomeIcon icon={faSquareFull} />
+                        <FaSquare />
                       </span>
                     </button>
                   </article>
                   <article>
                     <button
                       className="button"
-                      onClick={() => setElementType("select")}
+                      onClick={() => {
+                        setAction("none");
+                        setElementType("select");
+                      }}
                     >
                       <span className="icon is-small">
-                        <FontAwesomeIcon icon={faHandPointer} />
+                        <FaMousePointer />
                       </span>
                     </button>
                   </article>
                   <article>
                     <button
                       className="button"
-                      onClick={() => setElementType("select")}
+                      onClick={() => {
+                        setElementType("select");
+                        setAction("fill");
+                      }}
                     >
                       <span className="icon is-small">
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FaFillDrip />
+                      </span>
+                    </button>
+                  </article>
+                  <article>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        setElementType("select");
+                        setAction("remove");
+                      }}
+                    >
+                      <span className="icon is-small">
+                        <FaTrash />
+                      </span>
+                    </button>
+                  </article>
+                  <article>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        setAction("none");
+                        if (elements.length !== 0) {
+                          setElementType("clear");
+                          setElements([]);
+                        }
+                      }}
+                    >
+                      <span className="icon is-small">
+                        <FaStickyNote />
                       </span>
                     </button>
                   </article>
@@ -95,10 +127,25 @@ const Draw = () => {
               <input
                 type="range"
                 min="1"
-                max="100"
+                max="20"
                 className="brush-size"
+                onChange={(e) => setBrushWidth(e.target.value)}
               ></input>
-              <Canvas elementType={elementType} />
+              {brushWidth}
+              <input
+                type="color"
+                id="color"
+                onChange={(e) => setColour(e.target.value)}
+              />
+              <Canvas
+                elements={elements}
+                setElements={setElements}
+                elementType={elementType}
+                colour={colour}
+                brushWidth={brushWidth}
+                action={action}
+                setAction={setAction}
+              />
             </div>
           </div>
         </div>
