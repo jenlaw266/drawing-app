@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import Draw from "./pages/Draw";
 import Home from "./pages/Home";
+import Gallery from "./pages/Gallery";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,6 +15,7 @@ ReactDOM.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="draw" element={<Draw />} />
+          <Route path="gallery" element={<Gallery />} />
         </Route>
       </Routes>
     </BrowserRouter>

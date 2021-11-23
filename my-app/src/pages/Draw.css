@@ -11,3 +11,34 @@ article {
   align-items: center;
   align-content: center;
 }
+
+#right-align {
+  justify-content: flex-end;
+}
+
+.tile.is-parent {
+  padding-bottom: 0;
+}
+
+label {
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.section {
+  padding-top: 1em;
+}
+
+input {
+  margin-right: 1rem;
+}
+
+.save-button {
+  align-self: flex-end;
+}
+
+@media (max-width: 850px) {
+  body {
+    background-color: white;
+  }
+}
