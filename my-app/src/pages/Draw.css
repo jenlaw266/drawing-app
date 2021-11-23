@@ -11,3 +11,19 @@ article {
   align-items: center;
   align-content: center;
 }
+
+.tile {
+  min-width: max-content;
+  justify-content: center;
+}
+
+label {
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+@media (max-width: 850px) {
+  body {
+    background-color: lightblue;
+  }
+}

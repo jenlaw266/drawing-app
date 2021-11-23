@@ -13,7 +13,6 @@ const Home = () => {
               </Link>
             </div>
             <div className="column">
-              <i class="fab fa-react"></i>
               Sint aute non do incididunt velit eiusmod magna consectetur.
               Exercitation aliqua nulla Lorem ipsum reprehenderit magna veniam
               officia irure et anim consectetur. Lorem nostrud laboris ullamco

@@ -1,19 +1,33 @@
 import logo from "./draw-logo.png";
 import "./Nav.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Nav = () => {
+  const [active, setActive] = useState("");
   return (
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <Link to="/draw" class="navbar-item" id="nav-logo">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <Link to="/draw" className="navbar-item" id="nav-logo">
           <img src={logo} alt="draw logo" />
         </Link>
+        <div
+          className="navbar-burger"
+          id="burger"
+          onClick={() => setActive((prev) => (prev === "" ? "is-active" : ""))}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <Link to="/" class="navbar-item">
+      <div className={`navbar-menu ${active}`}>
+        <div className="navbar-start">
+          <Link to="/" className="navbar-item">
             About
+          </Link>
+          <Link to="/draw" className="navbar-item">
+            Draw
           </Link>
         </div>
       </div>

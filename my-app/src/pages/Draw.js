@@ -125,18 +125,21 @@ const Draw = () => {
             </div>
             <div className="column is-11">
               <input
+                type="color"
+                id="color"
+                onChange={(e) => setColour(e.target.value)}
+              />
+              <input
                 type="range"
                 min="1"
                 max="20"
                 className="brush-size"
                 onChange={(e) => setBrushWidth(e.target.value)}
               ></input>
+              <label>Colour: </label>
+              {colour}
+              <label>Brush Width: </label>
               {brushWidth}
-              <input
-                type="color"
-                id="color"
-                onChange={(e) => setColour(e.target.value)}
-              />
               <Canvas
                 elements={elements}
                 setElements={setElements}
