@@ -14,6 +14,8 @@ const Canvas = (props) => {
     setElements,
     action,
     setAction,
+    save,
+    setImgData,
   } = props;
 
   const [selectedElement, setSelectedElement] = useState(null);
@@ -21,7 +23,7 @@ const Canvas = (props) => {
   useEffect(() => {
     axios.get("/api/gallery").then((res) => {
       //check total drawings
-      console.log("gallery info", res);
+      console.log("gallery info", res.data);
       //give warning if gallery is full
     });
   }, []);
@@ -80,8 +82,13 @@ const Canvas = (props) => {
       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     }
 
+    if (save) {
+      const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+      setImgData(dataURL);
+    }
+
     contextRef.current = context;
-  }, [elements, colour, brushWidth, elementType]);
+  }, [elements, colour, brushWidth, elementType, save]);
 
   const distance = (a, b) =>
     Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));

@@ -1,4 +1,5 @@
-const pg = require("pg");
+require("dotenv").config();
+const { Pool } = require("pg");
 
 let dbParams;
 
@@ -17,10 +18,10 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-const client = new pg.Client(dbParams);
+const pool = new Pool(dbParams);
 
-client
+pool
   .connect()
   .catch((e) => console.log(`Error connecting to Postgres server:\n${e}`));
 
-module.exports = client;
+module.exports = pool;

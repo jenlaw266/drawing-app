@@ -11,6 +11,7 @@ import {
   FaSave,
 } from "react-icons/fa";
 import { useState } from "react";
+import axios from "axios";
 
 const Draw = () => {
   const [elementType, setElementType] = useState("brush");
@@ -19,6 +20,11 @@ const Draw = () => {
   const [elements, setElements] = useState([]);
   const [action, setAction] = useState("none"); //none, drawing, moving, remove, fill
   const [save, setSave] = useState(false);
+  const [imgData, setImgData] = useState("");
+  const [formData, setFormData] = useState({
+    name: "Untitled",
+    description: "",
+  });
 
   //window width < 754px - set toolbar to horizontal
 
@@ -30,8 +36,28 @@ const Draw = () => {
     toolbarAlignment = "";
   }
 
-  const handleSave = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("/api/drawing/new", {
+        name: formData.name,
+        image: imgData,
+        description: formData.description,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+
     setSave(false);
+    setImgData("");
+    setFormData({ name: "Untitled", description: "" });
+  };
+
+  const handleInput = (e) => {
+    const newData = { ...formData };
+    newData[e.target.id] = e.target.value;
+    setFormData(newData);
   };
 
   return (
@@ -172,6 +198,8 @@ const Draw = () => {
                   brushWidth={brushWidth}
                   action={action}
                   setAction={setAction}
+                  save={save}
+                  setImgData={setImgData}
                 />
               </div>
             </div>
@@ -181,23 +209,51 @@ const Draw = () => {
       <div className={`modal ${save ? "is-active" : ""}`}>
         <div className="modal-background"></div>
         <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">Save to Gallery</p>
-            <button
-              className="delete"
-              aria-label="close"
-              onClick={() => setSave(false)}
-            ></button>
-          </header>
-          <section className="modal-card-body">{/* content */}</section>
-          <footer className="modal-card-foot">
-            <button className="button is-success" onClick={() => handleSave}>
-              Save drawing
-            </button>
-            <button className="button" onClick={() => setSave(false)}>
-              Cancel
-            </button>
-          </footer>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <header className="modal-card-head">
+              <p className="modal-card-title">Post to Gallery</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={() => {
+                  setImgData("");
+                  setSave(false);
+                }}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <div className="field">
+                <label className="label">Drawing Name</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Art Piece 1"
+                    id="name"
+                    onChange={(e) => handleInput(e)}
+                    value={formData.name}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <label className="label">Description</label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    placeholder="An art piece I created using this awesome app"
+                    id="description"
+                    onChange={(e) => handleInput(e)}
+                    value={formData.description}
+                  ></textarea>
+                </div>
+              </div>
+            </section>
+            <footer className="modal-card-foot">
+              <button className="button is-success" type="submit">
+                Save drawing
+              </button>
+            </footer>
+          </form>
         </div>
       </div>
     </section>

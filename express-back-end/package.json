@@ -1,6 +1,7 @@
 {
   "scripts":{
-    "go":"nodemon server.js"
+    "go":"nodemon server.js",
+    "reset": "psql -U jenniferlaw -d drawingapp < ./db/schema/drawings.sql"
   },
   "dependencies":{
     "body-parser":"^1.19.0",
