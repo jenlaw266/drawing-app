@@ -1,19 +1,46 @@
-const Express = require('express');
+const Express = require("express");
 const App = Express();
-const BodyParser = require('body-parser');
+const BodyParser = require("body-parser");
 const PORT = 8080;
+const cors = require("cors");
+const db = require("./db");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
-App.use(Express.static('public'));
+App.use(Express.static("public"));
 
-// Sample GET route
-App.get('/api/data', (req, res) => res.json({
-  message: "Seems to work!",
-}));
+// get data
+App.get("/api/gallery", (req, res) => {
+  res.json({
+    message: "Seems to work!",
+  });
+});
+
+//get 1 pic
+App.get("/api/drawing/:id", (req, res) => {
+  res.json({
+    message: "Seems to work!2",
+  });
+});
+
+// post data
+App.post("/api/drawing/:id", (req, res) => {
+  res.json({
+    message: "Seems to work!2",
+  });
+});
+
+//delete data
+App.delete("/api/drawing/:id", (req, res) => {
+  res.json({
+    message: "Seems to work!2",
+  });
+});
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
+  console.log(
+    `Express seems to be listening on port ${PORT} so that's pretty good 👍`
+  );
 });
