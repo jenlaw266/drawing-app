@@ -4,11 +4,13 @@ const BodyParser = require("body-parser");
 const PORT = 8080;
 const cors = require("cors");
 const db = require("./db");
+const fs = require("fs");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 App.use(Express.static("public"));
+App.use(cors());
 
 // get data
 App.get("/api/gallery", (req, res) => {

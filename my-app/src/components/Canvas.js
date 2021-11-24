@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./Canvas.css";
+import axios from "axios";
 
 const Canvas = (props) => {
   const canvasRef = useRef(null);
@@ -16,6 +17,14 @@ const Canvas = (props) => {
   } = props;
 
   const [selectedElement, setSelectedElement] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api/gallery").then((res) => {
+      //check total drawings
+      console.log("gallery info", res);
+      //give warning if gallery is full
+    });
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -321,8 +330,8 @@ const Canvas = (props) => {
         const newBrush = {
           id,
           stroke: newStroke,
-          x1,
-          y1,
+          x1: newStroke[0][0],
+          y1: newStroke[0][1],
           type,
           bColour,
           bWidth,

@@ -30,6 +30,10 @@ const Draw = () => {
     toolbarAlignment = "";
   }
 
+  const handleSave = () => {
+    setSave(false);
+  };
+
   return (
     <section className="section">
       <div className="container">
@@ -187,10 +191,7 @@ const Draw = () => {
           </header>
           <section className="modal-card-body">{/* content */}</section>
           <footer className="modal-card-foot">
-            <button
-              className="button is-success"
-              onClick={() => setSave(false)}
-            >
+            <button className="button is-success" onClick={() => handleSave}>
               Save drawing
             </button>
             <button className="button" onClick={() => setSave(false)}>
