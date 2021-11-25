@@ -47,7 +47,7 @@ const Draw = () => {
         setWarning("Gallery is full, please delete a drawing before saving");
       }
     });
-  }, []);
+  }, [posted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,11 +60,10 @@ const Draw = () => {
       })
       .then((res) => {
         setPosted(true);
+        setSave(false);
+        setImgData("");
+        setFormData({ name: "Untitled", description: "" });
       });
-
-    setSave(false);
-    setImgData("");
-    setFormData({ name: "Untitled", description: "" });
   };
 
   const handleInput = (e) => {
@@ -73,10 +72,8 @@ const Draw = () => {
     setFormData(newData);
   };
 
-  console.log(warning);
-
   return (
-    <section className="section">
+    <section className="section" id="draw-section">
       <div className="container">
         <div class={`tile is-ancestor ${warning ? "" : "is-hidden"}`}>
           <div class="tile is-parent is-12">

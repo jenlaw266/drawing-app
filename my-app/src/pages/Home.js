@@ -1,47 +1,124 @@
-import screenShot from "./temp-pic.png";
+import canvasPhoto from "./canvasPhoto.png";
 import { Link } from "react-router-dom";
-import { FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
+import Footer from "../components/Footer";
+import videoCanvas from "./videoCanvas.mov";
+import videoGallery from "./videoGallery.mov";
+import "./Home.css";
 
 const Home = () => {
   return (
     <div>
       <section className="section">
         <div className="container">
-          <div className="columns">
-            <div className="column">
-              <Link to="/draw">
-                <img src={screenShot} alt="screen shot" />
-              </Link>
+          <div class="tile is-ancestor">
+            <div class="tile is-12 is-parent">
+              <div class="tile is-child box">
+                <div className="columns">
+                  <div className="column is-full">
+                    <p class="title is-1">Draw</p>
+                    <p class="subtitle is-3">a simple drawing app</p>
+                  </div>
+                </div>
+                <div className="columns">
+                  <div className="column is-two-thirds">
+                    <Link to="/draw">
+                      <img src={canvasPhoto} alt="screen shot" />
+                    </Link>
+                  </div>
+                  <div className="column desc">
+                    <p>
+                      Draw is a simple drawing app built using the HTML canvas
+                      element by Jennifer Law
+                      <br />
+                      <br />
+                      Made with the requirements of mintbean's{" "}
+                      <a href="https://mintbean.io/meets/cfa4fa54-c706-4c51-a04f-671f6686f9fd">
+                        hackathon
+                      </a>{" "}
+                      in mind - using NodeJS, ReactJS, Express, and PostgreSQL
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="column">
-              <FaReact />
-              This is a simple drawing app built using the HTML canvas element.
-              You can click on the icon, image and link in the nav bar to access
-              the drawing page. On the drawing page, you can draw free-form
-              lines, straight lines, rectangles,..... You can select the colour
-              of the line and fill. You are also able to move elements and
-              delete them with the select and delete tools. If you are unhappy
-              with the drawing, you can also clear the page by clicking the icon
-              for a fresh page.
-              <br />
-              using JavaScript, NodeJS, ReactJS, Express, and SQL.
-              <br />
-              circle, text.
-              <br />
-              save and share link
-              <br />
-              Sint aute non do incididunt velit eiusmod magna consectetur.
-              Exercitation aliqua nulla Lorem ipsum reprehenderit magna veniam
-              officia irure et anim consectetur. Lorem nostrud laboris ullamco
-              et velit irure cillum qui laborum proident. Velit culpa laboris in
-              officia ad do aliquip non enim est irure. Aute deserunt ut id
-              labore esse veniam ut. Do amet cupidatat consequat ad in Lorem
-              nostrud magna cillum adipisicing ea do deserunt. Officia ad
-              consectetur deserunt amet minim adipisicing ex duis.
+          </div>
+
+          <div class="tile is-ancestor">
+            <div class="tile is-12 is-parent">
+              <div class="tile is-child box">
+                <div className="columns">
+                  <div className="column desc">
+                    <p>
+                      <strong>Features:</strong>
+                      <br />
+                      <br />
+                      <ol>
+                        <ul>
+                          <li>
+                            ~ Free-draw lines, straight lines, and rectangles -
+                            essential tools to draw!
+                          </li>
+                          <li>
+                            ~ Colour picker and brush width - adjust according
+                            to your needs!
+                          </li>
+                          <li>
+                            ~ Select, move, and fill - essential tools to make
+                            changes!
+                          </li>
+                          <li>
+                            ~ Delete and clear - delete a selected stroke, or
+                            clear the page!
+                          </li>
+                          <li>~ Post - post your art to the Gallery!</li>
+                        </ul>
+                      </ol>
+                    </p>
+                  </div>
+                  <div className="column is-two-thirds">
+                    <video controls autoPlay loop muted>
+                      <source src={videoCanvas} type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tile is-ancestor">
+            <div class="tile is-12 is-parent">
+              <div class="tile is-child box">
+                <div className="columns">
+                  <div className="column is-two-thirds">
+                    <video controls autoPlay loop muted>
+                      <source src={videoGallery} type="video/mp4" />
+                    </video>
+                  </div>
+                  <div className="column desc">
+                    <p>
+                      <strong>Gallery:</strong>
+                      <br />
+                      <br />
+                      <ol>
+                        <ul>
+                          <li>~ Browse your drawings in the Gallery!</li>
+                          <li>
+                            ~ View your art individually by clicking view!
+                          </li>
+                          <li>~ Edit the title and description of your art!</li>
+                          <li>~ Delete old drawings by clicking delete!</li>
+                          <li>~ The Galley can display up to 6 drawings!</li>
+                        </ul>
+                      </ol>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
