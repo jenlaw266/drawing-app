@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Gallery.css";
+import Footer from "../components/Footer";
 
 const Card = ({ id, name, desc, img, setView, setRefresh, setUpdate }) => {
   const handleDelete = (id) => {
@@ -81,100 +82,103 @@ const Gallery = () => {
   };
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="content">
-          <h1>Gallery</h1>
-          <div className="columns is-multiline">
-            {data.map((pic, i) => {
-              const { description, name, image, id } = pic;
-              return (
-                <div className="column is-one-third" key={i}>
-                  <Card
-                    key={i}
-                    id={id}
-                    name={name}
-                    desc={description}
-                    img={image}
-                    setView={setView}
-                    setRefresh={setRefresh}
-                    setUpdate={setUpdate}
-                  />
-                </div>
-              );
-            })}
-          </div>
+    <div>
+      <section className="section">
+        <div className="container">
+          <div className="content">
+            <h1>Gallery</h1>
+            <div className="columns is-multiline">
+              {data.map((pic, i) => {
+                const { description, name, image, id } = pic;
+                return (
+                  <div className="column is-one-third" key={i}>
+                    <Card
+                      key={i}
+                      id={id}
+                      name={name}
+                      desc={description}
+                      img={image}
+                      setView={setView}
+                      setRefresh={setRefresh}
+                      setUpdate={setUpdate}
+                    />
+                  </div>
+                );
+              })}
+            </div>
 
-          <div className={`modal ${view ? "is-active" : ""}`}>
-            <div
-              className="modal-background"
-              onClick={() => {
-                setView(null);
-              }}
-            ></div>
-            <div className="modal-content has-background-white py-5 px-5">
-              <div className="content">
-                <img src={view} alt="drawing" />
+            <div className={`modal ${view ? "is-active" : ""}`}>
+              <div
+                className="modal-background"
+                onClick={() => {
+                  setView(null);
+                }}
+              ></div>
+              <div className="modal-content has-background-white py-5 px-5">
+                <div className="content">
+                  <img src={view} alt="drawing" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* repeat form from drawing - refactor? */}
-        <div
-          className={`modal ${
-            Object.keys(update).length !== 0 ? "is-active" : ""
-          }`}
-        >
-          <div className="modal-background"></div>
-          <div className="modal-card">
-            <header className="modal-card-head">
-              <p className="modal-card-title">Edit Name and Description</p>
-              <button
-                className="delete"
-                aria-label="close"
-                onClick={() => {
-                  setUpdate({});
-                }}
-              ></button>
-            </header>
-            <form onSubmit={(e) => handleSubmit(e)}>
-              <section className="modal-card-body">
-                <div className="field">
-                  <label className="label">Drawing Name</label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type="text"
-                      placeholder="Art Piece 1"
-                      id="name"
-                      onChange={(e) => handleInput(e)}
-                      value={update.name}
-                    />
+          {/* repeat form from drawing - refactor? */}
+          <div
+            className={`modal ${
+              Object.keys(update).length !== 0 ? "is-active" : ""
+            }`}
+          >
+            <div className="modal-background"></div>
+            <div className="modal-card">
+              <header className="modal-card-head">
+                <p className="modal-card-title">Edit Name and Description</p>
+                <button
+                  className="delete"
+                  aria-label="close"
+                  onClick={() => {
+                    setUpdate({});
+                  }}
+                ></button>
+              </header>
+              <form onSubmit={(e) => handleSubmit(e)}>
+                <section className="modal-card-body">
+                  <div className="field">
+                    <label className="label">Drawing Name</label>
+                    <div className="control">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="Art Piece 1"
+                        id="name"
+                        onChange={(e) => handleInput(e)}
+                        value={update.name}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="field">
-                  <label className="label">Description</label>
-                  <div className="control">
-                    <textarea
-                      className="textarea"
-                      placeholder="An art piece I created using this awesome app"
-                      id="desc"
-                      onChange={(e) => handleInput(e)}
-                      value={update.desc}
-                    ></textarea>
+                  <div className="field">
+                    <label className="label">Description</label>
+                    <div className="control">
+                      <textarea
+                        className="textarea"
+                        placeholder="An art piece I created using this awesome app"
+                        id="desc"
+                        onChange={(e) => handleInput(e)}
+                        value={update.desc}
+                      ></textarea>
+                    </div>
                   </div>
-                </div>
-              </section>
-              <footer className="modal-card-foot">
-                <button className="button is-success" type="submit">
-                  Save drawing
-                </button>
-              </footer>
-            </form>
+                </section>
+                <footer className="modal-card-foot">
+                  <button className="button is-success" type="submit">
+                    Save drawing
+                  </button>
+                </footer>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </div>
   );
 };
 

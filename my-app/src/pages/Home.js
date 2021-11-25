@@ -1,6 +1,8 @@
 import screenShot from "./temp-pic.png";
 import { Link } from "react-router-dom";
 import { FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
+import Footer from "../components/Footer";
+import videoCanvas from "./videoCanvas.mov";
 
 const Home = () => {
   return (
@@ -8,13 +10,12 @@ const Home = () => {
       <section className="section">
         <div className="container">
           <div className="columns">
-            <div className="column">
+            <div className="column is-half">
               <Link to="/draw">
                 <img src={screenShot} alt="screen shot" />
               </Link>
             </div>
-            <div className="column">
-              <FaReact />
+            <div className="column is-half">
               This is a simple drawing app built using the HTML canvas element.
               You can click on the icon, image and link in the nav bar to access
               the drawing page. On the drawing page, you can draw free-form
@@ -30,6 +31,8 @@ const Home = () => {
               <br />
               save and share link
               <br />
+              <FaReact />
+              <br />
               Sint aute non do incididunt velit eiusmod magna consectetur.
               Exercitation aliqua nulla Lorem ipsum reprehenderit magna veniam
               officia irure et anim consectetur. Lorem nostrud laboris ullamco
@@ -40,8 +43,18 @@ const Home = () => {
               consectetur deserunt amet minim adipisicing ex duis.
             </div>
           </div>
+
+          <div className="columns">
+            <div className="column is-half">zsdf</div>
+            <div className="column is-half">
+              <video controls autoPlay loop muted>
+                <source src={videoCanvas} type="video/mp4" />
+              </video>
+            </div>
+          </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

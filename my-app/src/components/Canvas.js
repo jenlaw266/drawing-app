@@ -36,7 +36,7 @@ const Canvas = (props) => {
     context.lineCap = "round";
 
     elements.forEach((el) => {
-      const { type } = el;
+      const type = el?.type;
       if (type === "line") {
         const { x1, y1, x2, y2, bColour, bWidth } = el;
         context.beginPath();
@@ -86,9 +86,26 @@ const Canvas = (props) => {
   const distance = (a, b) =>
     Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 
+  const adjustElementCoords = (element) => {
+    const { x1, y1, x2, y2, type } = element;
+    if (type === "rect") {
+      const minX = Math.min(x1, x2);
+      const maxX = Math.max(x1, x2);
+      const minY = Math.min(y1, y2);
+      const maxY = Math.max(y1, y2);
+      return { x1: minX, y1: minY, x2: maxX, y2: maxY };
+    } else {
+      if (x1 < x2 || (x1 === x2 && y1 < y2)) {
+        return { x1, y1, x2, y2 };
+      } else {
+        return { x1: x2, y1: y2, x2: x1, y2: y1 };
+      }
+    }
+  };
+
   const getElementAtPosition = (x, y, elements) => {
     return elements.find((element) => {
-      const { type } = element;
+      const type = element?.type;
       if (type === "rect") {
         const { x1, y1, x2, y2 } = element;
         const minX = Math.min(x1, x2);
@@ -104,11 +121,11 @@ const Canvas = (props) => {
         const offset = distance(a, b) - (distance(a, c) + distance(b, c));
         return Math.abs(offset) < 1;
       } else {
-        const { stroke } = element;
-        const factor = 2;
+        const stroke = element?.stroke;
+        const factor = 1;
         const array = [];
 
-        for (let i = 0; i < stroke.length - factor; i++) {
+        for (let i = 0; i < stroke?.length - factor; i++) {
           const a = { x: stroke[i][0], y: stroke[i][1] };
           const b = { x: stroke[i + factor][0], y: stroke[i + factor][0] };
           const c = { x, y };
@@ -335,6 +352,14 @@ const Canvas = (props) => {
   };
 
   const handleMouseUp = () => {
+    const index = elements.length - 1;
+    const type = elements[index]?.type;
+    if (action === "drawing" && type !== "brush" && index >= 0) {
+      const { id, bColour, bWidth, fColour } = elements[index];
+      const { x1, y1, x2, y2 } = adjustElementCoords(elements[index]);
+      updateElement(id, x1, y1, x2, y2, type, bColour, bWidth, fColour);
+    }
+
     setAction((prev) => {
       if (prev === "fill" || prev === "remove") {
         return prev;

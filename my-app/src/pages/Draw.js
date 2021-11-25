@@ -47,7 +47,7 @@ const Draw = () => {
         setWarning("Gallery is full, please delete a drawing before saving");
       }
     });
-  }, []);
+  }, [posted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,11 +60,10 @@ const Draw = () => {
       })
       .then((res) => {
         setPosted(true);
+        setSave(false);
+        setImgData("");
+        setFormData({ name: "Untitled", description: "" });
       });
-
-    setSave(false);
-    setImgData("");
-    setFormData({ name: "Untitled", description: "" });
   };
 
   const handleInput = (e) => {
@@ -72,8 +71,6 @@ const Draw = () => {
     newData[e.target.id] = e.target.value;
     setFormData(newData);
   };
-
-  console.log(warning);
 
   return (
     <section className="section">
