@@ -1,6 +1,6 @@
 import screenShot from "./temp-pic.png";
 import { Link } from "react-router-dom";
-import { FaReact } from "react-icons/fa";
+import { FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
 
 const Home = () => {
   return (

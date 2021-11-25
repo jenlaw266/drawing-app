@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import "./Canvas.css";
-import axios from "axios";
 
 const Canvas = (props) => {
   const canvasRef = useRef(null);
@@ -21,14 +20,6 @@ const Canvas = (props) => {
   const [selectedElement, setSelectedElement] = useState(null);
 
   useEffect(() => {
-    axios.get("/api/gallery").then((res) => {
-      //check total drawings
-      console.log("gallery info", res.data);
-      //give warning if gallery is full
-    });
-  }, []);
-
-  useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
@@ -39,6 +30,8 @@ const Canvas = (props) => {
 
     context.beginPath();
     context.rect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillStyle = "white";
+    context.fill();
 
     context.lineCap = "round";
 
@@ -317,19 +310,10 @@ const Canvas = (props) => {
           fColour
         );
       } else {
-        const {
-          id,
-          stroke,
-          x1,
-          y1,
-          type,
-          bColour,
-          bWidth,
-          elOffsetX,
-          elOffsetY,
-        } = selectedElement;
+        const { id, stroke, type, bColour, bWidth, elOffsetX, elOffsetY } =
+          selectedElement;
 
-        const newStroke = stroke.map((each, i) => {
+        const newStroke = stroke.map((each) => {
           return [each[0] + offsetX - elOffsetX, each[1] + offsetY - elOffsetY];
         });
 

@@ -25,7 +25,7 @@ App.get("/api/gallery", async (req, res) => {
 App.post("/api/drawing/new", async (req, res) => {
   try {
     const { name, image, description } = req.body;
-    console.log(name, description, image.length);
+    console.log(image.length);
     const newDrawing = await pool.query(
       "INSERT INTO drawings(name, image, description) VALUES ($1, $2, $3)",
       [name, image, description]

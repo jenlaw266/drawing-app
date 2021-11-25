@@ -8,9 +8,9 @@ import {
   FaFillDrip,
   FaTrash,
   FaStickyNote,
-  FaSave,
+  FaImages,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Draw = () => {
@@ -25,6 +25,8 @@ const Draw = () => {
     name: "Untitled",
     description: "",
   });
+  const [posted, setPosted] = useState(false);
+  const [warning, setWarning] = useState("");
 
   //window width < 754px - set toolbar to horizontal
 
@@ -36,6 +38,17 @@ const Draw = () => {
     toolbarAlignment = "";
   }
 
+  useEffect(() => {
+    setWarning("");
+    axios.get("/api/gallery").then((res) => {
+      //check total drawings
+      console.log("gallery info", res.data);
+      if (res.data.length >= 6) {
+        setWarning("Gallery is full, please delete a drawing before saving");
+      }
+    });
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -46,7 +59,7 @@ const Draw = () => {
         description: formData.description,
       })
       .then((res) => {
-        console.log(res.data);
+        setPosted(true);
       });
 
     setSave(false);
@@ -60,9 +73,16 @@ const Draw = () => {
     setFormData(newData);
   };
 
+  console.log(warning);
+
   return (
     <section className="section">
       <div className="container">
+        <div class={`tile is-ancestor ${warning ? "" : "is-hidden"}`}>
+          <div class="tile is-parent is-12">
+            <div class="tile is-child notification is-warning">{warning}</div>
+          </div>
+        </div>
         <div className="tile is-ancestor">
           <div className={`tile ${toolbarWidth} ${toolbarAlignment} is-parent`}>
             <div className="tile is-child">
@@ -157,9 +177,10 @@ const Draw = () => {
                 <button
                   className="button is-link is-outlined"
                   onClick={() => setSave(true)}
+                  disabled={warning}
                 >
                   <span className="icon">
-                    <FaSave />
+                    <FaImages />
                   </span>
                 </button>
               </article>
@@ -206,21 +227,22 @@ const Draw = () => {
           </div>
         </div>
       </div>
+
       <div className={`modal ${save ? "is-active" : ""}`}>
         <div className="modal-background"></div>
         <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Post to Gallery</p>
+            <button
+              className="delete"
+              aria-label="close"
+              onClick={() => {
+                setImgData("");
+                setSave(false);
+              }}
+            ></button>
+          </header>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <header className="modal-card-head">
-              <p className="modal-card-title">Post to Gallery</p>
-              <button
-                className="delete"
-                aria-label="close"
-                onClick={() => {
-                  setImgData("");
-                  setSave(false);
-                }}
-              ></button>
-            </header>
             <section className="modal-card-body">
               <div className="field">
                 <label className="label">Drawing Name</label>
@@ -254,6 +276,22 @@ const Draw = () => {
               </button>
             </footer>
           </form>
+        </div>
+      </div>
+
+      <div className={`modal ${posted ? "is-active" : ""}`}>
+        <div
+          className="modal-background"
+          onClick={() => setPosted(false)}
+        ></div>
+        <div className="modal-content has-background-white py-5 px-5">
+          <div className="content">
+            <h3>Posted!</h3>
+            <p>
+              You can view your drawing in the Gallery or continue to draw on
+              this page
+            </p>
+          </div>
         </div>
       </div>
     </section>
