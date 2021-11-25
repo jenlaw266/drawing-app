@@ -41,8 +41,6 @@ const Draw = () => {
   useEffect(() => {
     setWarning("");
     axios.get("/api/gallery").then((res) => {
-      //check total drawings
-      console.log("gallery info", res.data);
       if (res.data.length >= 6) {
         setWarning("Gallery is full, please delete a drawing before saving");
       }
@@ -242,7 +240,7 @@ const Draw = () => {
           <form onSubmit={(e) => handleSubmit(e)}>
             <section className="modal-card-body">
               <div className="field">
-                <label className="label">Drawing Name</label>
+                <label className="label">Title</label>
                 <div className="control">
                   <input
                     className="input"

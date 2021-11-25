@@ -22,22 +22,14 @@ const Nav = () => {
         </div>
       </div>
       <div className={`navbar-menu ${active}`}>
-        <div className="navbar-start">
+        <div className="navbar-start"></div>
+        <div className="navbar-end">
           <Link to="/" className="navbar-item">
             About
           </Link>
           <Link to="/gallery" className="navbar-item">
             Gallery
           </Link>
-        </div>
-        <div className="navbar-end">
-          <a
-            href="https://www.linkedin.com/in/jennifer-law-6991a04a/"
-            class="navbar-item"
-            id="contact-button"
-          >
-            ~Jennifer
-          </a>
         </div>
       </div>
     </nav>

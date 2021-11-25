@@ -142,7 +142,7 @@ const Gallery = () => {
               <form onSubmit={(e) => handleSubmit(e)}>
                 <section className="modal-card-body">
                   <div className="field">
-                    <label className="label">Drawing Name</label>
+                    <label className="label">Title</label>
                     <div className="control">
                       <input
                         className="input"
