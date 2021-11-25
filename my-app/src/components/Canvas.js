@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import "./Canvas.css";
-import axios from "axios";
 
 const Canvas = (props) => {
   const canvasRef = useRef(null);
@@ -14,17 +13,11 @@ const Canvas = (props) => {
     setElements,
     action,
     setAction,
+    save,
+    setImgData,
   } = props;
 
   const [selectedElement, setSelectedElement] = useState(null);
-
-  useEffect(() => {
-    axios.get("/api/gallery").then((res) => {
-      //check total drawings
-      console.log("gallery info", res);
-      //give warning if gallery is full
-    });
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -37,6 +30,8 @@ const Canvas = (props) => {
 
     context.beginPath();
     context.rect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillStyle = "white";
+    context.fill();
 
     context.lineCap = "round";
 
@@ -80,8 +75,13 @@ const Canvas = (props) => {
       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     }
 
+    if (save) {
+      const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+      setImgData(dataURL);
+    }
+
     contextRef.current = context;
-  }, [elements, colour, brushWidth, elementType]);
+  }, [elements, colour, brushWidth, elementType, save]);
 
   const distance = (a, b) =>
     Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
@@ -310,19 +310,10 @@ const Canvas = (props) => {
           fColour
         );
       } else {
-        const {
-          id,
-          stroke,
-          x1,
-          y1,
-          type,
-          bColour,
-          bWidth,
-          elOffsetX,
-          elOffsetY,
-        } = selectedElement;
+        const { id, stroke, type, bColour, bWidth, elOffsetX, elOffsetY } =
+          selectedElement;
 
-        const newStroke = stroke.map((each, i) => {
+        const newStroke = stroke.map((each) => {
           return [each[0] + offsetX - elOffsetX, each[1] + offsetY - elOffsetY];
         });
 
