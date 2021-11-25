@@ -5,3 +5,7 @@
 #burger {
   height: 95px;
 }
+
+#contact-button {
+  padding-right: 1em;
+}

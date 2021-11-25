@@ -13,11 +13,11 @@ const Card = ({ id, name, desc, img, setView, setRefresh, setUpdate }) => {
   return (
     <div className="card">
       <div className="card-content">
-        <p className="title is-5">{name}</p>
+        <p className="title is-6">{name}</p>
         <div className="card-image has-text-centered">
           <img src={img} alt="drawing" />
         </div>
-        <p>{desc}</p>
+        <p className="content is-small">{desc}</p>
       </div>
       <div className="card">
         <footer className="card-footer has-background-light">
@@ -86,7 +86,7 @@ const Gallery = () => {
       <section className="section">
         <div className="container">
           <div className="content">
-            <h1>Gallery</h1>
+            <h2 class="title is-2">Gallery</h2>
             <div className="columns is-multiline">
               {data.map((pic, i) => {
                 const { description, name, image, id } = pic;

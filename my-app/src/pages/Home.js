@@ -1,6 +1,5 @@
 import canvasPhoto from "./canvasPhoto.png";
 import { Link } from "react-router-dom";
-import { FaPaintBrush, FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
 import Footer from "../components/Footer";
 import videoCanvas from "./videoCanvas.mov";
 import videoGallery from "./videoGallery.mov";
@@ -29,16 +28,14 @@ const Home = () => {
                   <div className="column desc">
                     <p>
                       Draw is a simple drawing app built using the HTML canvas
-                      element.
+                      element by Jennifer Law
                       <br />
-                      using JavaScript, NodeJS, ReactJS, Express, and SQL.
                       <br />
-                      circle, text.
-                      <br />
-                      save and share link
-                      <br />
-                      <FaReact />
-                      <br />
+                      Made with the requirements of mintbean's{" "}
+                      <a href="https://mintbean.io/meets/cfa4fa54-c706-4c51-a04f-671f6686f9fd">
+                        hackathon
+                      </a>{" "}
+                      in mind - using NodeJS, ReactJS, Express, and PostgreSQL
                     </p>
                   </div>
                 </div>
@@ -52,12 +49,30 @@ const Home = () => {
                 <div className="columns">
                   <div className="column desc">
                     <p>
-                      On the drawing page, you can draw free-form lines,
-                      straight lines, rectangles,..... You can select the colour
-                      of the line and fill. You are also able to move elements
-                      and delete them with the select and delete tools. If you
-                      are unhappy with the drawing, you can also clear the page
-                      by clicking the icon for a fresh page.
+                      <strong>Features:</strong>
+                      <br />
+                      <br />
+                      <ol>
+                        <ul>
+                          <li>
+                            ~ Free-draw lines, straight lines, and rectangles -
+                            essential tools to draw!
+                          </li>
+                          <li>
+                            ~ Colour picker and brush width - adjust according
+                            to your needs!
+                          </li>
+                          <li>
+                            ~ Select, move, and fill - essential tools to make
+                            changes!
+                          </li>
+                          <li>
+                            ~ Delete and clear - delete a selected stroke, or
+                            clear the page!
+                          </li>
+                          <li>~ Post - post your art to the Gallery!</li>
+                        </ul>
+                      </ol>
                     </p>
                   </div>
                   <div className="column is-two-thirds">
@@ -80,7 +95,22 @@ const Home = () => {
                     </video>
                   </div>
                   <div className="column desc">
-                    <p>sdf</p>
+                    <p>
+                      <strong>Gallery:</strong>
+                      <br />
+                      <br />
+                      <ol>
+                        <ul>
+                          <li>~ Browse your drawings in the Gallery!</li>
+                          <li>
+                            ~ View your art individually by clicking view!
+                          </li>
+                          <li>~ Edit the title and description of your art!</li>
+                          <li>~ Delete old drawings by clicking delete!</li>
+                          <li>~ The Galley can display up to 6 drawings!</li>
+                        </ul>
+                      </ol>
+                    </p>
                   </div>
                 </div>
               </div>

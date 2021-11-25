@@ -30,6 +30,15 @@ const Nav = () => {
             Gallery
           </Link>
         </div>
+        <div className="navbar-end">
+          <a
+            href="https://www.linkedin.com/in/jennifer-law-6991a04a/"
+            class="navbar-item"
+            id="contact-button"
+          >
+            ~Jennifer
+          </a>
+        </div>
       </div>
     </nav>
   );
