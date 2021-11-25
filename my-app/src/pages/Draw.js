@@ -73,7 +73,7 @@ const Draw = () => {
   };
 
   return (
-    <section className="section">
+    <section className="section" id="draw-section">
       <div className="container">
         <div class={`tile is-ancestor ${warning ? "" : "is-hidden"}`}>
           <div class="tile is-parent is-12">
